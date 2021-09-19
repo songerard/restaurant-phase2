@@ -19,7 +19,7 @@ app.use(express.static('public'))
 // set route
 // index page
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { restaurant: restaurantList.results })
 })
 
 // set listen to localhost:3000
