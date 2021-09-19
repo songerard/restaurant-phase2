@@ -13,6 +13,9 @@ const port = 3000
 // get restaurant data from json
 const restaurantList = require('./restaurant.json')
 
+// use static files
+app.use(express.static('public'))
+
 // set route
 // index page
 app.get('/', (req, res) => {
