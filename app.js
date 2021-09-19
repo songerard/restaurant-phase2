@@ -22,6 +22,12 @@ app.get('/', (req, res) => {
   res.render('index', { restaurant: restaurantList.results })
 })
 
+// show restaurant details page
+app.get('/restaurants/:id', (req, res) => {
+  const restaurant = restaurantList.results.find(r => r.id === Number(req.params.id))
+  res.render('show', { restaurant: restaurant })
+})
+
 // set listen to localhost:3000
 app.listen(port, () => {
   console.log(`Express is listening to http://localhost:${port}`)
