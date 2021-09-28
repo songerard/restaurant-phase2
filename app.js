@@ -2,6 +2,10 @@
 const express = require('express')
 const app = express()
 
+// require mongodb
+const mongoose = require('mongoose')
+const db = mongoose.connect('restaurant')
+
 // set express-handlebars as view engine
 const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
