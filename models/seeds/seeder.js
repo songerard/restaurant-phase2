@@ -18,16 +18,27 @@ db.once('open', () => {
 
   // insert seeder into mongodb
   restaurantSeeder.results.forEach(seed => {
+    const {
+      name,
+      name_en,
+      category,
+      image,
+      location,
+      phone,
+      google_map,
+      rating,
+      description
+    } = seed
     Restaurant.create({
-      name: seed.name,
-      name_en: seed.name_en,
-      category: seed.category,
-      image: seed.image,
-      location: seed.location,
-      phone: seed.phone,
-      google_map: seed.google_map,
-      rating: seed.rating,
-      description: seed.description
+      name,
+      name_en,
+      category,
+      image,
+      location,
+      phone,
+      google_map,
+      rating,
+      description
     })
   })
   console.log('seeder done')
