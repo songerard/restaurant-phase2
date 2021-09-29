@@ -1,7 +1,7 @@
 // set mongodb connection
 const mongoose = require('mongoose')
 const Restaurant = require('../restaurant')   // load restaurant model
-mongoose.connect('mongodb://localhost/restaurant')
+mongoose.connect('mongodb://localhost/restaurant-list')
 const db = mongoose.connection
 
 // get restaurant seeder json

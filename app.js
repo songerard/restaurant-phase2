@@ -2,9 +2,22 @@
 const express = require('express')
 const app = express()
 
-// require mongodb
+// require mongodb and connect db 'restaurant-list'
 const mongoose = require('mongoose')
-const db = mongoose.connect('restaurant')
+mongoose.connect('mongodb://localhost/restaurant-list')
+const db = mongoose.connection
+
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
+// load restaurant model
+const Restaurant = require('./models/restaurant')
+
 
 // set express-handlebars as view engine
 const exphbs = require('express-handlebars')
@@ -14,8 +27,8 @@ app.set('view engine', 'handlebars')
 // set port
 const port = 3000
 
-// get restaurant data from json
-const restaurantList = require('./restaurant.json')
+// // get restaurant data from json
+// const restaurantList = require('./restaurant.json')
 
 // use static files
 app.use(express.static('public'))
@@ -23,7 +36,10 @@ app.use(express.static('public'))
 // set route
 // index page
 app.get('/', (req, res) => {
-  res.render('index', { restaurant: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.error(error))
 })
 
 // show restaurant details page
