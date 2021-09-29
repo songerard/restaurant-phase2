@@ -24,11 +24,20 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// require body-parser
+const bodyParser = require('body-parser')
+app.use(express.urlencoded({ extended: true }))
+
 // set port
 const port = 3000
 
 // use static files
 app.use(express.static('public'))
+
+// set listen to localhost:3000
+app.listen(port, () => {
+  console.log(`Express is listening to http://localhost:${port}`)
+})
 
 // set route
 // index page
@@ -37,6 +46,39 @@ app.get('/', (req, res) => {
     .lean()
     .sort({ 'rating': 'desc', 'name': 'asc' })
     .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.error(error))
+})
+
+// new restaurant page
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+// add new restaurant into mongodb
+app.post('/restaurants', (req, res) => {
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description
+  } = req.body
+  Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description
+  })
+    .then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
 
@@ -79,9 +121,4 @@ app.get('/search', (req, res) => {
       res.render('index', { restaurants, keyword, searchAlert })
     })
     .catch(error => console.error(error))
-})
-
-// set listen to localhost:3000
-app.listen(port, () => {
-  console.log(`Express is listening to http://localhost:${port}`)
 })

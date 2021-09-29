@@ -1,0 +1,64 @@
+<div class="container mt-3">
+  <h2 class="my-3">新增餐廳</h2>
+  <form action="/restaurants" method="POST">
+    <div class="form-group row">
+      <label for="name" class="col-sm-3 col-form-label">中文文名稱</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Input name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="name_en" class="col-sm-3 col-form-label">英文名稱</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Input English name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="category" class="col-sm-3 col-form-label">類別</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="category" name="category" placeholder="Input category">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="image" class="col-sm-3 col-form-label">相片網址</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="image" name="image" placeholder="Input image URL">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="location" class="col-sm-3 col-form-label">地點</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="location" name="location" placeholder="Input location">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="phone" class="col-sm-3 col-form-label">電話</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="google_map" class="col-sm-3 col-form-label">Google map 網址</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="google_map" name="google_map" placeholder="Input Google map URL">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="rating" class="col-sm-3 col-form-label">評分</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="rating" name="rating" placeholder="Input rating">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-3 col-form-label">詳情</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="description" name="description" placeholder="Input description">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9 mt-2">
+        <button type="submit" class="btn btn-primary">添加新餐廳</button>
+      </div>
+    </div>
+  </form>
+</div>
