@@ -122,3 +122,22 @@ app.get('/search', (req, res) => {
     })
     .catch(error => console.error(error))
 })
+
+// edit restaurant page
+app.get('/restaurants/:id/edit', (req, res) => {
+  Restaurant.findById(req.params.id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.error(error))
+})
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .then(restaurant => {
+      Object.assign(restaurant, req.body)
+      restaurant.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.error(error))
+})
