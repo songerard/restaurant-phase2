@@ -53,15 +53,32 @@ app.get('/restaurants/:id', (req, res) => {
 // search restaurant
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
-  const restaurants = restaurantList.results.filter(r => r.name.toLowerCase().includes(req.query.keyword.toLowerCase()) || r.category.toLowerCase().includes(req.query.keyword.toLowerCase()))
 
-  if (!restaurants.length || !keyword) {
-    // if no restaurant found
-    res.render('index', { restaurant: restaurantList.results, keyword: keyword, searchAlert: true })
-  } else {
-    // if some restaurants found
-    res.render('index', { restaurant: restaurants, keyword: keyword, searchAlert: false })
-  }
+  // get all restaurants from mongodb
+  const allRestaurants = []
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      allRestaurants.push(...restaurants)
+    })
+
+  // filter restaurants by keyword in name or category
+  Restaurant.find({
+    $or: [
+      { 'name': { "$regex": keyword, "$options": "i" } },
+      { 'category': { "$regex": keyword, "$options": "i" } }
+    ]
+  })
+    .lean()
+    .then(filteredRestaurants => {
+      // if no restaurant found, then set alert = true and show all restaurants
+      const searchAlert = (!filteredRestaurants.length || !keyword) ? true : false
+      const restaurants = (filteredRestaurants.length) ? filteredRestaurants : allRestaurants
+
+      // render index page
+      res.render('index', { restaurants, keyword, searchAlert })
+    })
+    .catch(error => console.error(error))
 })
 
 // set listen to localhost:3000
