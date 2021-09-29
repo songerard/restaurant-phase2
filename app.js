@@ -27,9 +27,6 @@ app.set('view engine', 'handlebars')
 // set port
 const port = 3000
 
-// // get restaurant data from json
-// const restaurantList = require('./restaurant.json')
-
 // use static files
 app.use(express.static('public'))
 
@@ -38,6 +35,7 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
+    .sort({ 'rating': 'desc', 'name': 'asc' })
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
 })
@@ -58,6 +56,7 @@ app.get('/search', (req, res) => {
   const allRestaurants = []
   Restaurant.find()
     .lean()
+    .sort({ 'rating': 'desc', 'name': 'asc' })
     .then(restaurants => {
       allRestaurants.push(...restaurants)
     })
@@ -70,6 +69,7 @@ app.get('/search', (req, res) => {
     ]
   })
     .lean()
+    .sort({ 'rating': 'desc', 'name': 'asc' })
     .then(filteredRestaurants => {
       // if no restaurant found, then set alert = true and show all restaurants
       const searchAlert = (!filteredRestaurants.length || !keyword) ? true : false
