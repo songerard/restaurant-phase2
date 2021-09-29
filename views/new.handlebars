@@ -1,58 +1,93 @@
 <div class="container mt-3">
   <h2 class="my-3">新增餐廳</h2>
-  <form action="/restaurants" method="POST">
+  <form action="/restaurants" method="POST" class="needs-validation" novalidate>
     <div class="form-group row">
       <label for="name" class="col-sm-3 col-form-label">中文文名稱</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="name" name="name" placeholder="Input name">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Input name" required pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="name_en" class="col-sm-3 col-form-label">英文名稱</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Input English name">
+        <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Input English name" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="category" class="col-sm-3 col-form-label">類別</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="category" name="category" placeholder="Input category">
+        <input type="text" class="form-control" id="category" name="category" placeholder="Input category" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="image" class="col-sm-3 col-form-label">相片網址</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="image" name="image" placeholder="Input image URL">
+        <input type="text" class="form-control" id="image" name="image" placeholder="Input image URL" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="location" class="col-sm-3 col-form-label">地點</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="location" name="location" placeholder="Input location">
+        <input type="text" class="form-control" id="location" name="location" placeholder="Input location" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="phone" class="col-sm-3 col-form-label">電話</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="google_map" class="col-sm-3 col-form-label">Google map 網址</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="google_map" name="google_map" placeholder="Input Google map URL">
+        <input type="text" class="form-control" id="google_map" name="google_map" placeholder="Input Google map URL"
+          required pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="rating" class="col-sm-3 col-form-label">評分</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="rating" name="rating" placeholder="Input rating">
+        <input type="text" class="form-control" id="rating" name="rating" placeholder="Input rating" required
+          pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="description" class="col-sm-3 col-form-label">詳情</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="description" name="description" placeholder="Input description">
+        <input type="text" class="form-control" id="description" name="description" placeholder="Input description"
+          required pattern="\S+">
+        <div class="invalid-feedback">
+          請輸入有效資料
+        </div>
       </div>
     </div>
     <div class="form-group row">
@@ -62,3 +97,25 @@
     </div>
   </form>
 </div>
+
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
