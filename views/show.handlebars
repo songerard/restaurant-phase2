@@ -5,8 +5,9 @@
     <div class="col-12 col-md-10 mx-auto">
       <div class="row d-flex justify-content-end">
         <a href="/restaurants/{{ restaurant._id }}/edit" class="btn btn-success mx-2">Edit</a>
-        <button type="button" class="btn btn-sm btn-danger mx-2" data-toggle="modal"
-          data-target="#Modal{{ restaurant._id }}">Delete</button>
+        <button type="button" class="btn btn-sm btn-danger mx-2 delete-btn" data-toggle="modal"
+          data-target="#deleteModal" data-id="{{ restaurant._id }}" data-name="{{ restaurant.name }}"
+          data-category="{{ restaurant.category }}">Delete</button>
       </div>
       <p class="mb-1">
         <span class="text-secondary">
@@ -46,26 +47,26 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="Modal{{ restaurant._id }}" tabindex="-1" aria-labelledby="ModalLabel{{ restaurant._id }}"
-  aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-danger" id="ModalLabel{{ restaurant._id }}">確認刪除餐廳資料</h5>
+        <h5 class="modal-title text-danger" id="ModalLabel">確認刪除餐廳資料</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        餐廳名稱：{{ restaurant.name }}<br>
-        餐廳類別：{{ restaurant.category }}
+        <!-- render by js -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-        <form action="/restaurants/{{ restaurant._id }}/delete" method="POST" style="display: inline;">
+        <form action="<!-- render by js -->" method="POST" style="display: inline;" class="delete-form">
           <button type="submit" class="btn btn-danger">刪除</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<script src="/javascripts/modal.js"></script>
