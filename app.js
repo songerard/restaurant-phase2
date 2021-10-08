@@ -51,15 +51,27 @@ app.get('/', (req, res) => {
 
 // new restaurant page
 app.get('/restaurants/new', (req, res) => {
-  res.render('new')
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const allCategory = []
+      restaurants.forEach(r => {
+        if (allCategory.indexOf(r.category) === -1) {
+          allCategory.push(r.category)
+        }
+      })
+      allCategory.sort
+      res.render('new', { allCategory })
+    })
 })
 
 // add new restaurant into mongodb
 app.post('/restaurants', (req, res) => {
-  const {
+  let {
     name,
     name_en,
     category,
+    other_category,
     image,
     location,
     phone,
@@ -67,6 +79,9 @@ app.post('/restaurants', (req, res) => {
     rating,
     description
   } = req.body
+
+  category = (category === '其他') ? other_category : category
+
   Restaurant.create({
     name,
     name_en,
