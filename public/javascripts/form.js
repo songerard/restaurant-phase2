@@ -23,7 +23,7 @@ function categoryForm(selectedCategory) {
   if (selectedCategory === '其他') {
     otherCategory.classList.remove('invisible')
     otherCategory.classList.add('visible')
-    otherCategory.pattern = ".*\S+.*"
+    otherCategory.pattern = ".*\\S+.*"
     otherCategory.required = true
   } else {
     otherCategory.classList.remove('visible')
