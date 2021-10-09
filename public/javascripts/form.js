@@ -18,9 +18,9 @@
 })();
 
 // show and hide input form for other category
-function categoryForm(catValue) {
+function categoryForm(selectedCategory) {
   const otherCategory = document.querySelector('.other-category')
-  if (catValue === '其他') {
+  if (selectedCategory === '其他') {
     otherCategory.classList.remove('invisible')
     otherCategory.classList.add('visible')
     otherCategory.pattern = ".*\S+.*"
@@ -28,7 +28,7 @@ function categoryForm(catValue) {
   } else {
     otherCategory.classList.remove('visible')
     otherCategory.classList.add('invisible')
-    otherCategory.pattern = ""
+    otherCategory.removeAttribute('pattern')
     otherCategory.required = false
   }
 }

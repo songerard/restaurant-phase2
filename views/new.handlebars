@@ -24,16 +24,17 @@
     <div class="form-group row">
       <label for="category" class="col-sm-3 col-form-label">類別</label>
       <div class="form-group col-md-3 my-1">
-        <select id="inputCategory" class="form-control" name="category" onchange="categoryForm(this.value)">
-          <option selected>Choose...</option>
+        <select id="inputCategory" class="form-control" name="category" onchange="categoryForm(this.value)" required>
+          <option selected disabled hidden value="">Choose...</option>
           {{#each allCategory}}
           <option>{{ this }}</option>
           {{/each}}
           <option>其他</option>
         </select>
       </div>
-      <div class="col-sm-6 invisible other-category">
-        <input type="text" class="form-control" id="category" name="other_category" placeholder="Input category">
+      <div class="col-sm-6">
+        <input type="text" class="form-control invisible other-category" id="category" name="other_category"
+          placeholder="Input category" required pattern=".*\S+.*">
         <div class="invalid-feedback">
           請輸入有效資料
         </div>
@@ -112,4 +113,4 @@
   </form>
 </div>
 
-<script src="/javascripts/new.js"></script>
+<script src="/javascripts/form.js"></script>

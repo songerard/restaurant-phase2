@@ -39,13 +39,36 @@ app.listen(port, () => {
   console.log(`Express is listening to http://localhost:${port}`)
 })
 
+// set common variable
+let allCategory = []
+let selectedRestaurantCategory = ''
+
+// register new handlebars function
+let hbs = exphbs.create({})
+hbs.handlebars.registerHelper('if_eq', function (a, options) {
+  if (a === selectedRestaurantCategory) {
+    return options.fn(this)
+  }
+})
+
 // set route
 // index page
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .sort({ 'rating': 'desc', 'name': 'asc' })
-    .then(restaurants => res.render('index', { restaurants }))
+    // update category list
+    .then(restaurants => {
+      allCategory = []      // clear allCategory list
+      restaurants.forEach(r => {
+        // if category not found in allCategory, then add in allCategory
+        if (allCategory.indexOf(r.category) === -1) {
+          allCategory.push(r.category)
+        }
+      })
+      allCategory.sort
+      res.render('index', { restaurants })
+    })
     .catch(error => console.error(error))
 })
 
@@ -53,16 +76,8 @@ app.get('/', (req, res) => {
 app.get('/restaurants/new', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants => {
-      const allCategory = []
-      restaurants.forEach(r => {
-        if (allCategory.indexOf(r.category) === -1) {
-          allCategory.push(r.category)
-        }
-      })
-      allCategory.sort
-      res.render('new', { allCategory })
-    })
+    .then(res.render('new', { allCategory }))
+    .catch(error => console.error(error))
 })
 
 // add new restaurant into mongodb
@@ -142,7 +157,10 @@ app.get('/search', (req, res) => {
 app.get('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(req.params.id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
+    .then(restaurant => {
+      selectedRestaurantCategory = restaurant.category
+      res.render('edit', { restaurant, allCategory })
+    })
     .catch(error => console.error(error))
 })
 
@@ -151,6 +169,8 @@ app.post('/restaurants/:id/edit', (req, res) => {
   Restaurant.findById(id)
     .then(restaurant => {
       Object.assign(restaurant, req.body)
+      // update category if "Other category" exist
+      restaurant.category = (req.body.other_category) ? req.body.other_category : restaurant.category
       restaurant.save()
     })
     .then(() => res.redirect('/'))
