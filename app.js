@@ -146,9 +146,10 @@ app.get('/search', (req, res) => {
       // if no restaurant found, then set alert = true and show all restaurants
       const searchAlert = (!filteredRestaurants.length || !keyword) ? true : false
       const restaurants = (filteredRestaurants.length) ? filteredRestaurants : allRestaurants
+      const showReturnBtn = (!searchAlert) ? true : false
 
       // render index page
-      res.render('index', { restaurants, keyword, searchAlert })
+      res.render('index', { restaurants, keyword, searchAlert, showReturnBtn })
     })
     .catch(error => console.error(error))
 })
@@ -164,6 +165,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// edit restaurant
 app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)

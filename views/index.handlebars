@@ -9,6 +9,9 @@
             aria-describedby="search-button" value={{ keyword }}>
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+            {{#if showReturnBtn}}
+            <a class="btn btn-secondary ml-2" href="/" id="return-button"><i class="fas fa-undo-alt"></i> 返回</a>
+            {{/if}}
           </div>
           <a href="/restaurants/new" class="btn btn btn-success ml-4">添加新餐廳</a>
         </div>
@@ -55,11 +58,11 @@
             </div>
           </a>
           <div class="d-flex justify-content-end">
-            <a href="/restaurants/{{ this._id }}/edit" class="mx-2 mt-1">Edit</a>
-            <a href="/restaurants/{{ this._id }}" class="mx-2 mt-1">Detail</a>
+            <a href="/restaurants/{{ this._id }}/edit" class="mx-2 mt-1">修改</a>
+            <a href="/restaurants/{{ this._id }}" class="mx-2 mt-1">詳情</a>
             <button type="button" class="btn btn-sm btn-outline-danger mx-2 delete-btn" data-toggle="modal"
               data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-              data-category="{{ this.category }}">Delete</button>
+              data-category="{{ this.category }}">刪除</button>
           </div>
         </div>
         {{/each}}

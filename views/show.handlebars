@@ -4,10 +4,11 @@
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
       <div class="row d-flex justify-content-end">
-        <a href="/restaurants/{{ restaurant._id }}/edit" class="btn btn-success mx-2">Edit</a>
+        <a href="/restaurants/{{ restaurant._id }}/edit" class="btn btn-success mx-2">修改</a>
         <button type="button" class="btn btn-sm btn-danger mx-2 delete-btn" data-toggle="modal"
           data-target="#deleteModal" data-id="{{ restaurant._id }}" data-name="{{ restaurant.name }}"
-          data-category="{{ restaurant.category }}">Delete</button>
+          data-category="{{ restaurant.category }}">刪除</button>
+        <a class="btn btn-secondary ml-3" href="/">返回</a>
       </div>
       <p class="mb-1">
         <span class="text-secondary">

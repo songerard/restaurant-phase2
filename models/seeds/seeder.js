@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/restaurant-list')
 const db = mongoose.connection
 
 // get restaurant seeder json
-const restaurantSeeder = require('../../restaurant.json')
+const restaurantSeeder = require('../../restaurant.json').results
 
 // if mongodb connection error
 db.on('error', () => {
@@ -17,7 +17,7 @@ db.once('open', () => {
   console.log('mongodb connected!')
 
   // insert seeder into mongodb
-  restaurantSeeder.results.forEach(seed => {
+  restaurantSeeder.forEach(seed => {
     const {
       name,
       name_en,
